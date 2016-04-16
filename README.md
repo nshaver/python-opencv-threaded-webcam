@@ -2,12 +2,12 @@
 Basic threaded mjpeg webcam server with opencv 3.x processing. Works well on SBC computers like Raspberry Pi or Odroid C2.
 
 # requirements
+- basic proficiency navigating linux via the command line, unzipping files, getting into unzipped sources and doing make/make install, installing apt packages via CLI, and installing python packages via pip install (or apt I guess).
 - a computer. I'm using an Odroid C2. I have done this on Raspberry Pi2, and Pi3, but Odroid C2 is quite a bit faster.
 - a USB webcam. I'm using a Sony Playstation Eye, less than $5 on Amazon prime, here: http://www.amazon.com/gp/product/B000VTQ3LU/ref=pd_lpo_sbs_dp_ss_2?pf_rd_p=1944687682&pf_rd_s=lpo-top-stripe-1&pf_rd_t=201&pf_rd_i=B000B69ECS&pf_rd_m=ATVPDKIKX0DER&pf_rd_r=1FW1XMZQ0H8WZNAM2Q2W
 - a debian-based operating system. I'm using Jessie arm64, kindly provided for Odroid C2 by meveric, here: http://forum.odroid.com/viewtopic.php?f=138&t=19403
-- python 2.7 (may work with 3.x, but no guarantees)
-- opencv 3.x (could work with 2.x, but 3.x has a lot more image processing features)
-- python modules: imutils, cv2 (3.x version, not 2.x version), numpy, threading, matploglib, scipi. You can either get these via apt, or pip. Your choice.
+- python 2.7 (may work with 3.x, but no guarantees), and a few python modules: imutils, cv2 (3.x version, not 2.x version), numpy, threading, matploglib, scipi. You can either get these via apt, or pip. Your choice.
+- opencv 3.x linux source, here: http://opencv.org/downloads.html
 
 # compiling opencv 3.x on raspberry pi, or odroid c2
 1. apt-get install some required building and image-related dev packages:
