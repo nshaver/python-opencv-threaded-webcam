@@ -19,7 +19,6 @@ from SocketServer import ThreadingMixIn
 from imutils.video import WebcamVideoStream
 import imutils
 import cv2
-from collections import deque
 import numpy as np
  
 #########################################################################
@@ -36,16 +35,23 @@ import threading
 #########################################################################
 # start variables
 #########################################################################
-# camera variables
+# cameraQuality 0-100, can affect CPU utilization
 cameraQuality=85
+
+# streamWidth is the size of the video stream that gets sent to browser
 streamWidth=640
 
-# color tracking variables
+# if camera appears as /dev/video0, 0 is the videoDeviceNumber to use
+videoDeviceNumber=0
+
+# color tracking on/off
+# set colorTracking=False if you don't want to get into the color-tracking
+# code. Setting to False makes for less lag and higher FPS, of course.
 colorTracking=True
-pts = deque(maxlen=64)
 font = cv2.FONT_HERSHEY_TRIPLEX
 
 #########################################################################
+# if colorTracking=True:
 # describe the lower/upper bounds of the HSV objects. these will
 # vary camera-by-camera, object-by-object, lighting-condition-by-
 # lighting-condition. Use a range-detection python script to determine
@@ -91,6 +97,10 @@ colorUpper = (99, 155, 255)
 # this may not always be desired though. Also, you may want to modify this
 # code to support multiple locks, depending upon the action (or even no
 # lock for some actions).
+#
+# the example action performed below simply prints the msg to the console.
+# put in a time.sleep(x) after (or before) the print to see the threading
+# and lock timer in action.
 #########################################################################
 actionThreads=[]
 lockExpireTime=0.5
@@ -261,11 +271,11 @@ class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
 # main processing
 #########################################################################
 def main():
-  global vs
+  global vs, videoDeviceNumber
 
   # created a threaded video stream
   print("starting webcam thread...")
-  vs = WebcamVideoStream(src=0).start()
+  vs = WebcamVideoStream(src=videoDeviceNumber).start()
   # allow the camera sensor to warm up before grabbing frames
   time.sleep(1)
 
