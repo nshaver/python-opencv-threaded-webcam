@@ -11,36 +11,36 @@ Basic threaded mjpeg webcam server with opencv 3.x processing. Works well on SBC
 
 # compiling opencv 3.x on raspberry pi, or odroid c2
 1. apt-get install some required building and image-related dev packages:
-```
-sudo apt-get install libopencv-dev build-essential cmake git libgtk2.0-dev pkg-config python-dev python-numpy libdc1394-22 libdc1394-22-dev libjpeg-dev libpng12-dev libtif f5-dev libjasper-dev libavcodec-dev libavformat-dev libswscale-dev libxine2-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev libv4l-dev libtbb-dev libqt4-dev libfaac-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev x264 v4l-utils
-```
+	```
+	sudo apt-get install libopencv-dev build-essential cmake git libgtk2.0-dev pkg-config python-dev python-numpy libdc1394-22 libdc1394-22-dev libjpeg-dev libpng12-dev libtif f5-dev libjasper-dev libavcodec-dev libavformat-dev libswscale-dev libxine2-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev libv4l-dev libtbb-dev libqt4-dev libfaac-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev x264 v4l-utils
+	```
 
 2. get the current version of opencv 3.x source, and unzip it
 
 3. prepare for the compile
-```
-cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=ON -D WITH_V4L=ON -D WITH_QT=ON -D WITH_OPENGL=ON ..
-```
+	```
+	cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=ON -D WITH_V4L=ON -D WITH_QT=ON -D WITH_OPENGL=ON ..
+	```
 
 4. compile. this takes a while. -j4 will use 4 cores and will be roughly 4x as fast, but it will make the computer pretty sluggish. I use -j3 so that one core is available for other things while it compiles.
-```
-make -j4
-```
+	```
+	make -j4
+	```
 
 5. Either use checkinstall to build yourself a deb package so you don't have to do this again (requires apt-get checkinstall):
-```
-sudo checkinstall
-```
+	```
+	sudo checkinstall
+	```
 
-OR, just make install it if you don't mind redoing all of this again if you start with a fresh OS:
+	OR, just make install it if you don't mind redoing all of this again if you start with a fresh OS:
 
-```
-sudo make install
-```
+	```
+	sudo make install
+	```
 
 6. Lastly, create yourself an opencv.conf file:
-```
-sudo /bin/bash -c 'echo "/usr/local/lib" > /etc/ld.so.conf.d/opencv.conf'
-```
+	```
+	sudo /bin/bash -c 'echo "/usr/local/lib" > /etc/ld.so.conf.d/opencv.conf'
+	```
 
 If all the above worked out, you should be able to run the python program and it will serve /dev/video0 via port 8080. Access the video at http://your_IP:8080/video.mjpeg
